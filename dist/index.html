@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-US" >
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Editor</title>
+    <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link media="all" type="text/css" rel="stylesheet" href="./assets/css/cropeditor.min.css">
+  </head>
+  <body class="cropeditor-demo-page">
+
+    <div class="" ng-app="galleryManagerApp">
+
+    <div class="wrapper" ng-controller="">
+
+      <!-- <div class="images">
+        <header>
+          <h2>Images</h2>
+          <div class="edit">
+            <a href="#">[+]</a>
+          </div>
+        </header>
+        <ul>
+          <li ng-repeat="image in images">
+            <div class="left">
+              <a href="{{config.basePath}}{{image.fileName}}"><img ng-src="{{config.basePath}}{{image.fileName | thumb}}"></a>
+            </div>
+            <div class="right">
+              <div class="row">
+                <label for="UID{{$id}}_file">File</label>
+                  <input id="UID{{$id}}_file" type="text" ng-model="image.fileName" />
+              </div>
+              <div class="row">
+                <label for="UID{{$id}}_title">Title</label>
+                  <input id="UID{{$id}}_title" type="text" ng-model="image.title" />
+              </div>
+              <div class="row">
+                <label for="UID{{$id}}_gallery">Gallery</label>
+                  <select id="UID{{$id}}_gallery" ng-model="image.gallery">
+                    <option value="0">[Unassigned]</option>
+                    <option ng-repeat="gallery in galleries" value="{{gallery.name}}">
+                      {{gallery.name}}
+                    </option>
+                  </select>
+              </div>
+              <div class="row">
+                <a href="#" ng-click="openThumbEditor(image)">Edit thumbnail</a>
+              </div>
+              <pre>form = {{image | json}}</pre>
+            </div>
+          </li>
+        </ul>
+      </div> -->
+
+      <div id="adminOverlay" ng-controller="galleryAdminCtrl">
+        <div class="overlayBg"></div>
+        <div class="overlayContent">
+
+          <div id="thumbEditor" class="editor" ng-controller="thumbEditCtrl">
+
+            <div class="preview_container">
+              <div class='crop_preview'>
+                <div class='crop_image_container'><img class="crop_image" ng-src="{{image.path != '' && $parent.config.basePath + image.path || '' }}" /></div>
+                <div class="crop_area" style="top:{{image.crop.top}}%;left:{{image.crop.left}}%;width:{{image.crop.width}}%;height:{{image.crop.height}}%">
+                  <div class="crop_handle p_top p_left corner_handle"><div class="handle_icon"></div></div>
+                  <div class="crop_handle p_top p_right corner_handle"><div class="handle_icon"></div></div>
+                  <div class="crop_handle p_bottom p_left corner_handle"><div class="handle_icon"></div></div>
+                  <div class="crop_handle p_bottom p_right corner_handle"><div class="handle_icon"></div></div>
+
+                  <div class="crop_handle p_middle p_left side_handle"><div class="handle_icon"></div></div>
+                  <div class="crop_handle p_middle p_right side_handle"><div class="handle_icon"></div></div>
+                  <div class="crop_handle p_center p_top side_handle"><div class="handle_icon"></div></div>
+                  <div class="crop_handle p_center p_bottom side_handle"><div class="handle_icon"></div></div>
+                </div>
+                <div class='crop_mask crop_mask_left p_left' style="width:{{image.crop.left}}%;"></div>
+                <div class='crop_mask crop_mask_right p_right' style="width:{{100 - image.crop.left - image.crop.width}}%;"></div>
+
+                <div class='crop_mask crop_mask_top p_top' style="height:{{image.crop.top}}%;width:{{image.crop.width}}%;left:{{image.crop.left}}%;"></div>
+                <div class='crop_mask crop_mask_bottom p_bottom' style="height:{{100 - image.crop.top - image.crop.height}}%;width:{{image.crop.width}}%;left:{{image.crop.left}}%;"></div>
+              </div>
+            </div>
+            <div class="control_panel">
+              <fieldset class="field_container">
+                <label for="thumb_edit_top"		  >Top:	  </label><div class="field"><input id="thumb_edit_top" 	  type="text" ng-model="image.crop.top"    readonly />%</div>
+                <label for="thumb_edit_left"	  >Left:	</label><div class="field"><input id="thumb_edit_left" 	  type="text" ng-model="image.crop.left"   readonly />%</div>
+                <label for="thumb_edit_width"	  >Width:	</label><div class="field"><input id="thumb_edit_width" 	type="text" ng-model="image.crop.width"  readonly />%</div>
+                <label for="thumb_edit_height"	>Height:</label><div class="field"><input id="thumb_edit_height" 	type="text" ng-model="image.crop.height" readonly />%</div>
+              </fieldset>
+              <div class="buttons">
+                <a class="crop_save_button" ng-click="saveEdit()">Save</a>
+                <a class="crop_cancel_button" ng-click="cancelEdit()">Cancel</a>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="./assets/js/cropeditor.min.js"></script>
+
+  </body>
+</html>

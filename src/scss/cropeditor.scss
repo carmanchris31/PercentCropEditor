@@ -1,0 +1,218 @@
+#thumbEditor {
+	display: table;
+	width: 100%;
+	height: 100%;
+	font-family: Helvetica, Arial;
+
+	.preview_container {
+		text-align: center;
+		display: table-cell;
+	}
+
+	.crop_preview {
+	/*	background-color: #cc6;*/
+		margin: 1em;
+	/*	height: 100%;*/
+		display: inline-block;
+
+		/* Container for absolutely positioned elements */
+		position: relative;
+	}
+
+	.control_panel {
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+		padding: 1em;
+		padding-left: 0em;
+	}
+
+	.buttons {
+		margin-top: 0.5em;
+		font-size: 0.8em;
+	}
+
+	.buttons a {
+		cursor: pointer;
+		border: none;
+		padding: 5px 9px;
+		box-shadow: 1px 2px 2px #444;
+	}
+
+	.field_container {
+		width: 110px;
+		line-height: 1.5em;
+		padding: 8px;
+
+		background: #f0f0f0;
+
+		border: 1px solid #d1d1d1;
+		border-radius: 3px;
+		-webkit-border-radius: 3px;
+
+		box-shadow: inset 0 0 3px rgba(0,0,0,0.1);
+		-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.1);
+
+		label {
+		/*	display:none;*/
+			float: left;
+			clear: both;
+			margin-top: 1px;
+			font-size: .9em;
+		}
+
+		.field {
+			float: right;
+			width: 60px;
+			text-align: right;
+			font-size: .8em;
+		}
+
+		input {
+			width: 3.8em;
+			text-align: right;
+			margin-right: 4px;
+			padding: 1px 2px 2px 2px;
+
+			border: 1px solid #d1d1d1;
+			border-radius: 3px;
+			-webkit-border-radius: 3px;
+
+			box-shadow: inset 0 0 3px rgba(0,0,0,0.1);
+			-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.1);
+		}
+	}
+}
+
+.crop_cancel_button { float: left; background-color: #EEE; }
+.crop_save_button { float: right; background-color: #aE9; }
+
+.crop_image_container {
+	text-align: left;
+}
+
+.crop_image {
+	/* Keep in bounds */
+	max-height: 100%;
+	max-width: 100%;
+
+	/* Fix gap below image from default baseline alignment (see line-height) */
+	vertical-align: bottom;
+}
+
+.crop_area {
+	position: absolute;
+	background: none;
+}
+
+.crop_mask {
+	position: absolute;
+	background-color: rgba( 0, 0, 0, 0.6 );
+}
+
+.crop_handle {
+	position:absolute;
+	height: 20px;
+	width: 20px;
+}
+
+.crop_handle .handle_icon {
+	position: absolute;
+}
+
+/* Set z-index order */
+.corner_handle { z-index: 500; }
+.side_handle { z-index: 400; }
+.crop_area { z-index: 300; }
+
+/* Some adjustments */
+.side_handle.p_middle { height: 100%; transform: translateY(-50%); }
+.side_handle.p_center { width: 100%; 	transform: translateX(-50%) }
+.crop_handle.p_middle .handle_icon { margin-top: -3px; }
+.crop_handle.p_center .handle_icon { margin-left: -3px; }
+
+/* These parts always span the entire height of the image */
+.crop_mask_left,
+.crop_mask_right	{ top: 0; height: 100%; }
+
+/* Absolute positioning */
+.p_left .handle_icon,
+.p_left 	{ left:0; }
+
+.p_right .handle_icon,
+.p_right 	{ right:0; }
+
+.p_top .handle_icon,
+.p_top 		{ top: 0; }
+
+.p_bottom .handle_icon,
+.p_bottom 	{ bottom: 0; }
+
+.p_middle .handle_icon,
+.p_middle	{ top: 50%; }
+
+.p_center .handle_icon,
+.p_center	{ left: 50%; }
+
+
+/* Handle representations */
+
+/* Push handles outside of crop area */
+.crop_area .handle_icon { margin: -3px; }
+
+/* Give them borders */
+.crop_handle { border-style: solid; border-color: #fff; }
+.crop_handle .handle_icon { border-style: solid; border-color: #000; }
+
+.corner_handle .handle_icon { width: 100%; height: 100%; }
+.side_handle .handle_icon { width: 20px; height: 20px; }
+
+.crop_handle.p_top.p_left .handle_icon,
+.crop_handle.p_top.p_left 		{ border-width: 1px	0	0	1px; }
+
+.crop_handle.p_top.p_center .handle_icon,
+.crop_handle.p_top.p_center 	{ border-width: 1px	0	0	0; }
+
+.crop_handle.p_top.p_right .handle_icon,
+.crop_handle.p_top.p_right 		{ border-width: 1px	1px	0	0; }
+
+.crop_handle.p_middle.p_right .handle_icon,
+.crop_handle.p_middle.p_right 	{ border-width: 0	1px	0	0; }
+
+.crop_handle.p_bottom.p_right .handle_icon,
+.crop_handle.p_bottom.p_right 	{ border-width: 0	1px	1px	0; }
+
+.crop_handle.p_bottom.p_center .handle_icon,
+.crop_handle.p_bottom.p_center 	{ border-width: 0	0	1px	0; }
+
+.crop_handle.p_bottom.p_left .handle_icon,
+.crop_handle.p_bottom.p_left 	{ border-width: 0	0	1px	1px; }
+
+.crop_handle.p_middle.p_left .handle_icon,
+.crop_handle.p_middle.p_left 	{ border-width: 0	0	0	1px; }
+
+/* Directional cursors for handles */
+
+/* Uni-directional */
+
+.crop_handle.p_top.p_left 		{ cursor: nw-resize; }
+.crop_handle.p_top.p_center 	{ cursor: n-resize; }
+.crop_handle.p_top.p_right 		{ cursor: ne-resize; }
+.crop_handle.p_middle.p_right 	{ cursor: e-resize; }
+.crop_handle.p_bottom.p_right 	{ cursor: se-resize; }
+.crop_handle.p_bottom.p_center 	{ cursor: s-resize; }
+.crop_handle.p_bottom.p_left 	{ cursor: sw-resize; }
+.crop_handle.p_middle.p_left 	{ cursor: w-resize; }
+
+/* Bi-directional */
+.crop_handle.p_top.p_left 		{ cursor: nwse-resize; }
+.crop_handle.p_top.p_center 	{ cursor: ns-resize; }
+.crop_handle.p_top.p_right 		{ cursor: nesw-resize; }
+.crop_handle.p_middle.p_right 	{ cursor: ew-resize; }
+.crop_handle.p_bottom.p_right 	{ cursor: nwse-resize; }
+.crop_handle.p_bottom.p_center 	{ cursor: ns-resize; }
+.crop_handle.p_bottom.p_left 	{ cursor: nesw-resize; }
+.crop_handle.p_middle.p_left 	{ cursor: ew-resize; }
+
+
+.crop_area { cursor: move; }
